@@ -345,4 +345,19 @@ public:
         {
             return _LoadClientsDataFromFile();
         }
+
+        static double GetTotalBalances()
+        {
+            vector<clsBankClient> vClients = clsBankClient::GetClientsList();
+
+            double TotalBalances = 0;
+
+            for (clsBankClient Client : vClients)
+            {
+
+                TotalBalances += Client.GetAccountBalance();
+            }
+
+            return TotalBalances;
+        }
     };
