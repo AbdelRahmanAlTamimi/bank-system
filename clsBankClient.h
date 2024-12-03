@@ -19,6 +19,7 @@ private:
     string _AccountNumber;
     string _PinCode;
     float _AccountBalance;
+    bool _MarkedForDelete = false;
 
     static clsBankClient _ConvertLinetoClientObject(string Line, string Seperator = "#//#")
     {
@@ -96,6 +97,31 @@ private:
         }
     }
 
+    static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
+    {
+
+        fstream MyFile;
+        MyFile.open("Clients.txt", ios::out); // overwrite
+
+        string DataLine;
+
+        if (MyFile.is_open())
+        {
+
+            for (clsBankClient C : vClients)
+            {
+                if (C.MarkedForDeleted() == false)
+                {
+                    // we only write records that are not marked for delete.
+                    DataLine = _ConverClientObjectToLine(C);
+                    MyFile << DataLine << endl;
+                }
+            }
+
+            MyFile.close();
+        }
+    }
+
     void _Update()
     {
         vector<clsBankClient> _vClients;
@@ -137,6 +163,11 @@ public:
     bool IsEmpty()
     {
         return (_Mode == enMode::EmptyMode);
+    }
+
+    bool MarkedForDeleted()
+    {
+        return _MarkedForDelete;
     }
 
     clsBankClient(enMode Mode, string FirstName, string LastName, string Email, string Phone,
@@ -240,6 +271,27 @@ public:
             MyFile.close();
         }
         return _GetEmptyClientObject();
+    }
+
+    bool Delete()
+    {
+        vector<clsBankClient> _vClients;
+        _vClients = _LoadClientsDataFromFile();
+
+        for (clsBankClient &C : _vClients)
+        {
+            if (C.GetAccountNumber() == _AccountNumber)
+            {
+                C._MarkedForDelete = true;
+                break;
+            }
+        }
+
+        _SaveCleintsDataToFile(_vClients);
+
+        *this = _GetEmptyClientObject();
+
+        return true;
     }
 
     enum enSaveResults
