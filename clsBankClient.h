@@ -12,7 +12,8 @@ private:
     enum enMode
     {
         EmptyMode = 0,
-        UpdateMode = 1
+        UpdateMode = 1,
+        AddNewMode = 2
     };
     enMode _Mode;
     string _AccountNumber;
@@ -110,6 +111,26 @@ private:
         }
 
         _SaveCleintsDataToFile(_vClients);
+    }
+
+    void _AddNew()
+    {
+
+        _AddDataLineToFile(_ConverClientObjectToLine(*this));
+    }
+
+    void _AddDataLineToFile(string stDataLine)
+    {
+        fstream MyFile;
+        MyFile.open("Clients.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+
+            MyFile << stDataLine << endl;
+
+            MyFile.close();
+        }
     }
 
 public:
@@ -224,7 +245,8 @@ public:
     enum enSaveResults
     {
         svFaildEmptyObject = 0,
-        svSucceeded = 1
+        svSucceeded = 1,
+        svFaildAccountNumberExists = 2
     };
 
     enSaveResults Save()
@@ -232,28 +254,58 @@ public:
 
         switch (_Mode)
         {
-            case enMode::EmptyMode:
+        case enMode::EmptyMode:
+        {
+            if (IsEmpty())
             {
 
                 return enSaveResults::svFaildEmptyObject;
+
             }
 
-            case enMode::UpdateMode:
-            {
-
-                _Update();
-
-                return enSaveResults::svSucceeded;
-
-                break;
-            }
         }
-    }
 
+        case enMode::UpdateMode:
+        {
+
+
+            _Update();
+
+            return enSaveResults::svSucceeded;
+
+            break;
+        }
+
+        case enMode::AddNewMode:
+        {
+            //This will add new record to file or database
+            if (clsBankClient::IsClientExist(_AccountNumber))
+            {
+                return enSaveResults::svFaildAccountNumberExists;
+            }
+            else
+            {
+                _AddNew();
+
+                //We need to set the mode to update after add new
+                _Mode = enMode::UpdateMode;
+                return enSaveResults::svSucceeded;
+            }
+
+            break;
+        }
+        }
+
+    }
         static bool IsClientExist(string AccountNumber)
         {
 
             clsBankClient Client1 = clsBankClient::Find(AccountNumber);
             return (!Client1.IsEmpty());
+        }
+
+        static clsBankClient GetAddNewClientObject(string AccountNumber)
+        {
+            return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
         }
     };
