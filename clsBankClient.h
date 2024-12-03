@@ -76,26 +76,6 @@ private:
         return vClients;
     }
 
-    static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
-    {
-
-        fstream MyFile;
-        MyFile.open("Clients.txt", ios::out); // overwrite
-
-        string DataLine;
-
-        if (MyFile.is_open())
-        {
-
-            for (clsBankClient C : vClients)
-            {
-                DataLine = _ConverClientObjectToLine(C);
-                MyFile << DataLine << endl;
-            }
-
-            MyFile.close();
-        }
-    }
 
     static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
     {
@@ -359,5 +339,10 @@ public:
         static clsBankClient GetAddNewClientObject(string AccountNumber)
         {
             return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+        }
+
+        static vector<clsBankClient> GetClientsList()
+        {
+            return _LoadClientsDataFromFile();
         }
     };
