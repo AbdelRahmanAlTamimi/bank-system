@@ -28,9 +28,88 @@ private:
                              vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6]));
     }
 
+    static string _ConverClientObjectToLine(clsBankClient Client, string Seperator = "#//#")
+    {
+        string stClientRecord = "";
+        stClientRecord += Client.GetFirstName() + Seperator;
+        stClientRecord += Client.GetLastName() + Seperator;
+        stClientRecord += Client.GetEmail() + Seperator;
+        stClientRecord += Client.GetPhone() + Seperator;
+        stClientRecord += Client.GetAccountNumber() + Seperator;
+        stClientRecord += Client.GetPinCode() + Seperator;
+        stClientRecord += to_string(Client.GetAccountBalance());
+
+        return stClientRecord;
+    }
+
     static clsBankClient _GetEmptyClientObject()
     {
         return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
+    }
+
+    static vector<clsBankClient> _LoadClientsDataFromFile()
+    {
+
+        vector<clsBankClient> vClients;
+
+        fstream MyFile;
+        MyFile.open("Clients.txt", ios::in); // read Mode
+
+        if (MyFile.is_open())
+        {
+
+            string Line;
+
+            while (getline(MyFile, Line))
+            {
+
+                clsBankClient Client = _ConvertLinetoClientObject(Line);
+
+                vClients.push_back(Client);
+            }
+
+            MyFile.close();
+        }
+
+        return vClients;
+    }
+
+    static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
+    {
+
+        fstream MyFile;
+        MyFile.open("Clients.txt", ios::out); // overwrite
+
+        string DataLine;
+
+        if (MyFile.is_open())
+        {
+
+            for (clsBankClient C : vClients)
+            {
+                DataLine = _ConverClientObjectToLine(C);
+                MyFile << DataLine << endl;
+            }
+
+            MyFile.close();
+        }
+    }
+
+    void _Update()
+    {
+        vector<clsBankClient> _vClients;
+        _vClients = _LoadClientsDataFromFile();
+
+        for (clsBankClient &C : _vClients)
+        {
+            if (C.GetAccountNumber() == GetAccountNumber())
+            {
+                C = *this;
+                break;
+            }
+        }
+
+        _SaveCleintsDataToFile(_vClients);
     }
 
 public:
@@ -112,6 +191,9 @@ public:
             MyFile.close();
 
         }
+        else {
+            cout << "here";
+        }
 
         return _GetEmptyClientObject();
     }
@@ -138,10 +220,40 @@ public:
         }
         return _GetEmptyClientObject();
     }
-    static bool IsClientExist(string AccountNumber)
+
+    enum enSaveResults
+    {
+        svFaildEmptyObject = 0,
+        svSucceeded = 1
+    };
+
+    enSaveResults Save()
     {
 
-        clsBankClient Client1 = clsBankClient::Find(AccountNumber);
-        return (!Client1.IsEmpty());
+        switch (_Mode)
+        {
+            case enMode::EmptyMode:
+            {
+
+                return enSaveResults::svFaildEmptyObject;
+            }
+
+            case enMode::UpdateMode:
+            {
+
+                _Update();
+
+                return enSaveResults::svSucceeded;
+
+                break;
+            }
+        }
     }
-};
+
+        static bool IsClientExist(string AccountNumber)
+        {
+
+            clsBankClient Client1 = clsBankClient::Find(AccountNumber);
+            return (!Client1.IsEmpty());
+        }
+    };
