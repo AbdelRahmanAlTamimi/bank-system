@@ -2,9 +2,11 @@
 #include <iostream>
 #include "clsScreen.h"
 #include "clsInputValidate.h"
-#include <iomanip>
 #include "clsClientListScreen.h"
 #include "clsAddNewClientScreen.h"
+#include "clsDeleteClientScreen.h"
+#include "clsUpdateClientScreen.h"
+#include "clsFindClientScreen.h"
 
 using namespace std;
 
@@ -49,23 +51,23 @@ class clsMainScreen:protected clsScreen
             clsAddNewClientScreen::ShowAddNewClientScreen();
         }
 
-       static void _ShowDeleteClientScreen()
-       {
-           cout << "\nDelete Client Screen Will be here...\n";
+        static void _ShowDeleteClientScreen()
+        {
+            // cout << "\nDelete Client Screen Will be here...\n";
+            clsDeleteClientScreen::ShowDeleteClientScreen();
+        }
 
-       }
+        static void _ShowUpdateClientScreen()
+        {
+            // cout << "\nUpdate Client Screen Will be here...\n";
+            clsUpdateClientScreen::ShowUpdateClientScreen();
+        }
 
-       static void _ShowUpdateClientScreen()
-       {
-           cout << "\nUpdate Client Screen Will be here...\n";
-
-       }
-
-       static void _ShowFindClientScreen()
-       {
-           cout << "\nFind Client Screen Will be here...\n";
-
-       }
+        static void _ShowFindClientScreen()
+        {
+            // cout << "\nFind Client Screen Will be here...\n";
+            clsFindClientScreen::ShowFindClientScreen();
+        }
 
        static void _ShowTransactionsMenue()
        {
