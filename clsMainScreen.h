@@ -7,6 +7,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
+#include "clsTransactionsScreen.h"
 
 using namespace std;
 
@@ -69,11 +70,11 @@ class clsMainScreen:protected clsScreen
             clsFindClientScreen::ShowFindClientScreen();
         }
 
-       static void _ShowTransactionsMenue()
-       {
-           cout << "\nTransactions Menue Will be here...\n";
-
-       }
+        static void _ShowTransactionsMenue()
+        {
+            // cout << "\nTransactions Menue Will be here...\n";
+            clsTransactionsScreen::ShowTransactionsMenue();
+        }
 
        static void _ShowManageUsersMenue()
        {
@@ -87,64 +88,63 @@ class clsMainScreen:protected clsScreen
 
            }
 
-       static void _PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
-        {
-            switch (MainMenueOption)
-            {
-            case enMainMenueOptions::eListClients:
-            {
-                system("clear");
-                _ShowAllClientsScreen();
-                _GoBackToMainMenue();
-                break;
-            }
-            case enMainMenueOptions::eAddNewClient:
-                system("clear");
-               _ShowAddNewClientsScreen();
-                _GoBackToMainMenue();
-                break;
+           static void _PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
+           {
+               switch (MainMenueOption)
+               {
+               case enMainMenueOptions::eListClients:
+               {
+                   system("clear");
+                   _ShowAllClientsScreen();
+                   _GoBackToMainMenue();
+                   break;
+               }
+               case enMainMenueOptions::eAddNewClient:
+                   system("clear");
+                   _ShowAddNewClientsScreen();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eDeleteClient:
-                system("clear");
-                _ShowDeleteClientScreen();
-                _GoBackToMainMenue();
-                break;
+               case enMainMenueOptions::eDeleteClient:
+                   system("clear");
+                   _ShowDeleteClientScreen();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eUpdateClient:
-                system("clear");
-                _ShowUpdateClientScreen();
-                _GoBackToMainMenue();
-                break;
+               case enMainMenueOptions::eUpdateClient:
+                   system("clear");
+                   _ShowUpdateClientScreen();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eFindClient:
-                system("clear");
-                _ShowFindClientScreen();
-                _GoBackToMainMenue();
-                break;
+               case enMainMenueOptions::eFindClient:
+                   system("clear");
+                   _ShowFindClientScreen();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eShowTransactionsMenue:
-                system("clear");
-                _ShowTransactionsMenue();
-                break;
+               case enMainMenueOptions::eShowTransactionsMenue:
+                   system("clear");
+                   _ShowTransactionsMenue();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eManageUsers:
-                system("clear");
-                _ShowManageUsersMenue();
-                break;
+               case enMainMenueOptions::eManageUsers:
+                   system("clear");
+                   _ShowManageUsersMenue();
+                   _GoBackToMainMenue();
+                   break;
 
-            case enMainMenueOptions::eExit:
-                system("clear");
-                _ShowEndScreen();
-                //Login();
+               case enMainMenueOptions::eExit:
+                   system("clear");
+                   _ShowEndScreen();
+                   // Login();
 
-                break;
-            }
+                   break;
+               }
+           }
 
-        }
-
-
-
-	public:
+    public:
        
 
        static void ShowMainMenue()
