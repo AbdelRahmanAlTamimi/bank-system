@@ -34,7 +34,9 @@ private:
     {
         cout << setw(37) << left << "" << "\n\tPress any key to go back to Main Menue...\n";
 
-        system("pause>0");
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
+
         ShowMainMenue();
     }
 

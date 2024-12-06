@@ -48,8 +48,10 @@ private:
 
     static void _GoBackToTransactionsMenue()
     {
-        cout << "\n\nPress any key to go back to Transactions Menue...";
-        system("pause>0");
+        cout << "\n\nPress any key to go back to Transactions Menu...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
+
         ShowTransactionsMenue();
     }
 
@@ -59,7 +61,7 @@ private:
         {
         case enTransactionsMenueOptions::eDeposit:
         {
-            system("cls");
+            system("clear");
             _ShowDepositScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -67,7 +69,7 @@ private:
 
         case enTransactionsMenueOptions::eWithdraw:
         {
-            system("cls");
+            system("clear");
             _ShowWithdrawScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -75,7 +77,7 @@ private:
 
         case enTransactionsMenueOptions::eShowTotalBalance:
         {
-            system("cls");
+            system("clear");
             _ShowTotalBalancesScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -93,7 +95,7 @@ public:
     static void ShowTransactionsMenue()
     {
 
-        system("cls");
+        system("clear");
         _DrawScreenHeader("\tTransactions Screen");
 
         cout << setw(37) << left << "" << "===========================================\n";

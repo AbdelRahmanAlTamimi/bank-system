@@ -31,7 +31,9 @@ private:
     static void _GoBackToManageUsersMenue()
     {
         cout << "\n\nPress any key to go back to Manage Users Menue...";
-        // system("pause>0");
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
+
         ShowManageUsersMenue();
     }
 
