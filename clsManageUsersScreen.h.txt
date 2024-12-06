@@ -7,18 +7,13 @@
 
 using namespace std;
 
-class clsManageUsersScreen : protected clsScreen
+class clsManageUsersScreen :protected clsScreen
 {
 
 private:
-    enum enManageUsersMenueOptions
-    {
-        eListUsers = 1,
-        eAddNewUser = 2,
-        eDeleteUser = 3,
-        eUpdateUser = 4,
-        eFindUser = 5,
-        eMainMenue = 6
+    enum enManageUsersMenueOptions {
+        eListUsers = 1, eAddNewUser = 2, eDeleteUser = 3,
+        eUpdateUser = 4, eFindUser = 5, eMainMenue = 6
     };
 
     static short ReadManageUsersMenueOption()
@@ -31,24 +26,26 @@ private:
     static void _GoBackToManageUsersMenue()
     {
         cout << "\n\nPress any key to go back to Manage Users Menue...";
-        // system("pause>0");
+        system("pause>0");
         ShowManageUsersMenue();
     }
 
     static void _ShowListUsersScreen()
     {
-        // cout << "\nList Users Screen Will Be Here.\n";
+        //cout << "\nList Users Screen Will Be Here.\n";
         clsListUsersScreen::ShowUsersList();
     }
 
     static void _ShowAddNewUserScreen()
     {
         cout << "\nAdd New User Screen Will Be Here.\n";
+
     }
 
     static void _ShowDeleteUserScreen()
     {
         cout << "\nDelete User Screen Will Be Here.\n";
+
     }
 
     static void _ShowUpdateUserScreen()
@@ -61,6 +58,7 @@ private:
         cout << "\nFind User Screen Will Be Here.\n";
     }
 
+
     static void _PerformManageUsersMenueOption(enManageUsersMenueOptions ManageUsersMenueOption)
     {
 
@@ -68,7 +66,7 @@ private:
         {
         case enManageUsersMenueOptions::eListUsers:
         {
-            system("clear");
+            system("cls");
             _ShowListUsersScreen();
             _GoBackToManageUsersMenue();
             break;
@@ -76,7 +74,7 @@ private:
 
         case enManageUsersMenueOptions::eAddNewUser:
         {
-            system("clear");
+            system("cls");
             _ShowAddNewUserScreen();
             _GoBackToManageUsersMenue();
             break;
@@ -84,7 +82,7 @@ private:
 
         case enManageUsersMenueOptions::eDeleteUser:
         {
-            system("clear");
+            system("cls");
             _ShowDeleteUserScreen();
             _GoBackToManageUsersMenue();
             break;
@@ -92,7 +90,7 @@ private:
 
         case enManageUsersMenueOptions::eUpdateUser:
         {
-            system("clear");
+            system("cls");
             _ShowUpdateUserScreen();
             _GoBackToManageUsersMenue();
             break;
@@ -100,7 +98,7 @@ private:
 
         case enManageUsersMenueOptions::eFindUser:
         {
-            system("clear");
+            system("cls");
 
             _ShowFindUserScreen();
             _GoBackToManageUsersMenue();
@@ -109,16 +107,21 @@ private:
 
         case enManageUsersMenueOptions::eMainMenue:
         {
-            // do nothing here the main screen will handle it :-) ;
+            //do nothing here the main screen will handle it :-) ;
         }
         }
+
     }
 
+
+
 public:
+
+
     static void ShowManageUsersMenue()
     {
 
-        system("clear");
+        system("cls");
         _DrawScreenHeader("\t Manage Users Screen");
 
         cout << setw(37) << left << "" << "===========================================\n";
@@ -134,4 +137,6 @@ public:
 
         _PerformManageUsersMenueOption((enManageUsersMenueOptions)ReadManageUsersMenueOption());
     }
+
 };
+
