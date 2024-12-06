@@ -4,6 +4,7 @@
 #include "clsInputValidate.h"
 #include <iomanip>
 #include "clsDepositScreen.h"
+#include "clsWithdrawScreen.h"
 
 using namespace std;
 
@@ -34,7 +35,8 @@ private:
 
     static void _ShowWithdrawScreen()
     {
-        cout << "\n Withdraw Screen will be here.\n";
+        // cout << "\n Withdraw Screen will be here.\n";
+        clsWithdrawScreen::ShowWithdrawScreen();
     }
 
     static void _ShowTotalBalancesScreen()
@@ -55,7 +57,7 @@ private:
         {
         case enTransactionsMenueOptions::eDeposit:
         {
-            system("clear");
+            system("cls");
             _ShowDepositScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -63,7 +65,7 @@ private:
 
         case enTransactionsMenueOptions::eWithdraw:
         {
-            system("clear");
+            system("cls");
             _ShowWithdrawScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -71,7 +73,7 @@ private:
 
         case enTransactionsMenueOptions::eShowTotalBalance:
         {
-            system("clear");
+            system("cls");
             _ShowTotalBalancesScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -89,7 +91,7 @@ public:
     static void ShowTransactionsMenue()
     {
 
-        system("clear");
+        system("cls");
         _DrawScreenHeader("\tTransactions Screen");
 
         cout << setw(37) << left << "" << "===========================================\n";

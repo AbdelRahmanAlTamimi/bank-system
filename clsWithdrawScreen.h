@@ -5,12 +5,10 @@
 #include "clsBankClient.h"
 #include "clsInputValidate.h"
 
-class clsDepositScreen : protected clsScreen
+class clsWithdrawScreen : protected clsScreen
 {
-
 private:
-
-    static void _PrintClient(clsBankClient Client)
+        static void _PrintClient(clsBankClient Client)
     {
         cout << "\nClient Card:";
         cout << "\n___________________";
@@ -33,12 +31,11 @@ private:
         return AccountNumber;
     }
 
-
 public:
 
-    static void ShowDepositScreen()
+    static void ShowWithdrawScreen()
     {
-        _DrawScreenHeader("\t   Deposit Screen");
+        _DrawScreenHeader("\t   Withdraw Screen");
 
         string AccountNumber = _ReadAccountNumber();
 
@@ -52,8 +49,9 @@ public:
         clsBankClient Client1 = clsBankClient::Find(AccountNumber);
         _PrintClient(Client1);
 
+
         double Amount = 0;
-        cout << "\nPlease enter deposit amount? ";
+        cout << "\nPlease enter Withdraw amount? ";
         Amount = clsInputValidate::ReadDblNumber();
 
         cout << "\nAre you sure you want to perform this transaction? ";
@@ -62,10 +60,17 @@ public:
 
         if (Answer == 'Y' || Answer == 'y')
         {
-            Client1.Deposit(Amount);
-            cout << "\nAmount Deposited Successfully.\n";
+           if( Client1.Withdraw(Amount))
+           { 
+            cout << "\nAmount Withdrew Successfully.\n";
             cout << "\nNew Balance Is: " << Client1.GetAccountBalance();
-
+           }
+           else
+           {
+               cout << "\nCannot withdraw, Insuffecient Balance!\n";
+               cout << "\nAmout to withdraw is: " << Amount;
+               cout << "\nYour Balance is: " << Client1.GetAccountBalance();
+                      }
         }
         else
         {
