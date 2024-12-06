@@ -3,17 +3,20 @@
 #include "clsScreen.h"
 #include "clsInputValidate.h"
 #include <iomanip>
+#include "clsDepositScreen.h"
 
 using namespace std;
 
-class clsTransactionsScreen :protected clsScreen
+class clsTransactionsScreen : protected clsScreen
 {
 
-
 private:
-    enum enTransactionsMenueOptions {
-        eDeposit = 1, eWithdraw = 2,
-        eShowTotalBalance = 3, eShowMainMenue = 4
+    enum enTransactionsMenueOptions
+    {
+        eDeposit = 1,
+        eWithdraw = 2,
+        eShowTotalBalance = 3,
+        eShowMainMenue = 4
     };
 
     static short ReadTransactionsMenueOption()
@@ -23,10 +26,10 @@ private:
         return Choice;
     }
 
-
     static void _ShowDepositScreen()
     {
-        cout << "\n Deposit Screen will be here.\n";
+        // cout << "\n Deposit Screen will be here.\n";
+        clsDepositScreen::ShowDepositScreen();
     }
 
     static void _ShowWithdrawScreen()
@@ -44,7 +47,6 @@ private:
         cout << "\n\nPress any key to go back to Transactions Menue...";
         system("pause>0");
         ShowTransactionsMenue();
-
     }
 
     static void _PerformTransactionsMenueOption(enTransactionsMenueOptions TransactionsMenueOption)
@@ -53,7 +55,7 @@ private:
         {
         case enTransactionsMenueOptions::eDeposit:
         {
-            system("cls");
+            system("clear");
             _ShowDepositScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -61,7 +63,7 @@ private:
 
         case enTransactionsMenueOptions::eWithdraw:
         {
-            system("cls");
+            system("clear");
             _ShowWithdrawScreen();
             _GoBackToTransactionsMenue();
             break;
@@ -69,33 +71,26 @@ private:
 
         case enTransactionsMenueOptions::eShowTotalBalance:
         {
-            system("cls");
+            system("clear");
             _ShowTotalBalancesScreen();
             _GoBackToTransactionsMenue();
             break;
         }
 
-
         case enTransactionsMenueOptions::eShowMainMenue:
         {
-            //do nothing here the main screen will handle it :-) ;
+
+            // do nothing here the main screen will handle it :-) ;
         }
         }
-
-
     }
 
-
-
 public:
-
-
     static void ShowTransactionsMenue()
     {
 
-
-        system("cls");
-        _DrawScreenHeader("\t  Transactions Screen");
+        system("clear");
+        _DrawScreenHeader("\tTransactions Screen");
 
         cout << setw(37) << left << "" << "===========================================\n";
         cout << setw(37) << left << "" << "\t\t  Transactions Menue\n";
@@ -108,6 +103,4 @@ public:
 
         _PerformTransactionsMenueOption((enTransactionsMenueOptions)ReadTransactionsMenueOption());
     }
-
 };
-
