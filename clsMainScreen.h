@@ -9,6 +9,7 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
+#include "Global.h"
 
 using namespace std;
 
@@ -91,10 +92,16 @@ private:
         clsManageUsersScreen::ShowManageUsersMenue();
     }
 
-    static void _ShowEndScreen()
-    {
-        cout << "\nEnd Screen Will be here...\n";
+    // static void _ShowEndScreen()
+    // {
+    //     cout << "\nEnd Screen Will be here...\n";
 
+    // }
+    static void _Logout()
+    {
+
+        CurrentUser = clsUser::Find("", "");
+        // then it will go back to main function.
     }
 
     static void _PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
@@ -146,8 +153,8 @@ private:
 
         case enMainMenueOptions::eExit:
             system("clear");
-            _ShowEndScreen();
-            //Login();
+            // _ShowEndScreen();
+            _Logout();
 
             break;
         }
