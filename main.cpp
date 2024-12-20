@@ -1,11 +1,11 @@
 #include <iostream>
-#include "clsMainScreen.h"
+#include "clsLoginScreen.h"
 
 int main()
-{
-    clsMainScreen::ShowMainMenue();
 
-    std::cout << "Press Enter to continue...";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+{
+   
+    clsLoginScreen::ShowLoginScreen();
+
     return 0;
 }
