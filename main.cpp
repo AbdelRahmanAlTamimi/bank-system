@@ -1,5 +1,5 @@
-#include <iostream>
 #include "clsLoginScreen.h"
+
 
 int main()
 
@@ -7,7 +7,10 @@ int main()
    
     while(true)
     {
-        clsLoginScreen::ShowLoginScreen();
+        if (!clsLoginScreen::ShowLoginScreen())
+        {
+            break;
+        }
     }
 
     return 0;

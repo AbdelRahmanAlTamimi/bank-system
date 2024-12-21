@@ -1,5 +1,5 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/tamimi6030/gitHub/BankSystem/main'
+binary-path:     main
 relocations:     []
 ...
