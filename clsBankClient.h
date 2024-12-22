@@ -142,6 +142,37 @@ private:
         }
     }
 
+    string _PrepareTransferLogRecord(float Amount, clsBankClient DestinationClient,
+                                     string UserName, string Seperator = "#//#")
+    {
+        string TransferLogRecord = "";
+        TransferLogRecord += clsDate::GetSystemDateTimeString() + Seperator;
+        TransferLogRecord += GetAccountNumber() + Seperator;
+        TransferLogRecord += DestinationClient.GetAccountNumber() + Seperator;
+        TransferLogRecord += to_string(Amount) + Seperator;
+        TransferLogRecord += to_string(GetAccountBalance()) + Seperator;
+        TransferLogRecord += to_string(DestinationClient.GetAccountBalance()) + Seperator;
+        TransferLogRecord += UserName;
+        return TransferLogRecord;
+    }
+
+    void _RegisterTransferLog(float Amount, clsBankClient DestinationClient, string UserName)
+    {
+
+        string stDataLine = _PrepareTransferLogRecord(Amount, DestinationClient, UserName);
+
+        fstream MyFile;
+        MyFile.open("TransferLog.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+
+            MyFile << stDataLine << endl;
+
+            MyFile.close();
+        }
+    }
+
 public:
     bool IsEmpty()
     {
@@ -369,7 +400,7 @@ public:
             }
         }
 
-        bool Transfer(float Amount, clsBankClient &DestinationClient)
+        bool Transfer(float Amount, clsBankClient &DestinationClient, string UserName)
         {
             if (Amount > GetAccountBalance())
             {
@@ -378,6 +409,8 @@ public:
 
             Withdraw(Amount);
             DestinationClient.Deposit(Amount);
+            _RegisterTransferLog(Amount, DestinationClient, UserName);
+
             return true;
         }
     };

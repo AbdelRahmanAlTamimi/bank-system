@@ -60,7 +60,8 @@ private:
     static void _GoBackToTransactionsMenue()
     {
         cout << "\n\nPress any key to go back to Transactions Menue...";
-        system("pause>0");
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         ShowTransactionsMenue();
 
     }
