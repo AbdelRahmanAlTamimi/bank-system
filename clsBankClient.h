@@ -1,9 +1,12 @@
 #pragma once
+#include <iostream>
+#include <string>
 #include "clsPerson.h"
 #include "clsString.h"
 #include <vector>
 #include <fstream>
-#include <iostream>
+
+using namespace std;
 
 class clsBankClient : public clsPerson
 {
@@ -186,22 +189,7 @@ public:
     {
         _AccountBalance = AccountBalance;
     }
-    /*
-       void Print()
-       {
-           cout << "\nClient Card:";
-           cout << "\n___________________";
-           cout << "\nFirstName   : " << GetFirstName();
-           cout << "\nLastName    : " << GetLastName();
-           cout << "\nFull Name   : " << FullName();
-           cout << "\nEmail       : " << GetEmail();
-           cout << "\nPhone       : " << GetPhone();
-           cout << "\nAcc. Number : " << _AccountNumber;
-           cout << "\nPassword    : " << _PinCode;
-           cout << "\nBalance     : " << _AccountBalance;
-           cout << "\n___________________\n";
-       }
-   */
+    
     static clsBankClient Find(string AccountNumber)
     {
         vector<clsBankClient> vClients;
@@ -381,4 +369,15 @@ public:
             }
         }
 
+        bool Transfer(float Amount, clsBankClient &DestinationClient)
+        {
+            if (Amount > GetAccountBalance())
+            {
+                return false;
+            }
+
+            Withdraw(Amount);
+            DestinationClient.Deposit(Amount);
+            return true;
+        }
     };

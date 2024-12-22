@@ -7,7 +7,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
-#include "clsTransactionsScreen.h"
+#include "clsTransactionScreen.h"
 #include "clsManageUsersScreen.h"
 #include "clsLoginScreen.h"
 #include "Global.h"
