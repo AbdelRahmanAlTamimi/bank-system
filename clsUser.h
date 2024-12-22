@@ -6,6 +6,8 @@
 #include <vector>
 #include <fstream>
 #include "clsDate.h"
+#include "clsUtil.h"
+
 
 using namespace std;
 class clsUser : public clsPerson
@@ -16,12 +18,10 @@ private:
     enMode _Mode;
     string _UserName;
     string _Password;
+    string _EncryptedPassword;
     int _Permissions;
 
     bool _MarkedForDelete = false;
-
-    
-    
 
     static clsUser _ConvertLinetoUserObject(string Line, string Seperator = "#//#")
     {
@@ -29,7 +29,7 @@ private:
         vUserData = clsString::Split(Line, Seperator);
 
         return clsUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2],
-            vUserData[3], vUserData[4], vUserData[5], stoi(vUserData[6]));
+                       vUserData[3], vUserData[4], clsUtil::DecryptText(vUserData[5]), stoi(vUserData[6]));
 
     }
 
@@ -42,7 +42,7 @@ private:
         UserRecord += User.GetEmail() + Seperator;
         UserRecord += User.GetPhone() + Seperator;
         UserRecord += User.GetUserName() + Seperator;
-        UserRecord += User.GetPassword() + Seperator;
+        UserRecord += clsUtil::EncryptText(User.GetPassword()) + Seperator;
         UserRecord += to_string(User.GetPermissions());
 
         return UserRecord;

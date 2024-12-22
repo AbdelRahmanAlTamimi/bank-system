@@ -7,6 +7,7 @@
 #include "clsWithdrawScreen.h"
 #include "clsTotalBalancesScreen.h"
 #include "clsTransferScreen.h"
+#include "clsTransferLogScreen.h"
 
 using namespace std;
 
@@ -15,17 +16,21 @@ class clsTransactionsScreen :protected clsScreen
 
 
 private:
-    enum enTransactionsMenueOptions {
-        eDeposit = 1, eWithdraw = 2,
-        eShowTotalBalance = 3, eTransfer = 4,
-        eShowMainMenue = 5
-        
+    enum enTransactionsMenueOptions
+    {
+        eDeposit = 1,
+        eWithdraw = 2,
+        eShowTotalBalance = 3,
+        eTransfer = 4,
+        eTransferLog = 5,
+        eShowMainMenue = 6
+
     };
 
     static short ReadTransactionsMenueOption()
     {
-        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 5]? ";
-        short Choice = clsInputValidate::ReadShortNumberBetween(1, 5, "Enter Number between 1 to 5? ");
+        cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 6]? ";
+        short Choice = clsInputValidate::ReadShortNumberBetween(1, 6, "Enter Number between 1 to 6? ");
         return Choice;
     }
 
@@ -66,6 +71,12 @@ private:
 
     }
 
+    static void _ShowTransferLogScreen()
+    {
+        // cout << "\n Transfer Screen will be here.\n";
+        clsTransferLogScreen::ShowTransferLogScreen();
+    }
+
     static void _PerformTransactionsMenueOption(enTransactionsMenueOptions TransactionsMenueOption)
     {
         switch (TransactionsMenueOption)
@@ -99,6 +110,14 @@ private:
         {
             system("clear");
             _ShowTransferScreen();
+            _GoBackToTransactionsMenue();
+            break;
+        }
+
+        case enTransactionsMenueOptions::eTransferLog:
+        {
+            system("clear");
+            _ShowTransferLogScreen();
             _GoBackToTransactionsMenue();
             break;
         }

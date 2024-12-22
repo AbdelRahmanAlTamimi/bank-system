@@ -413,4 +413,58 @@ public:
 
             return true;
         }
+        struct stTrnsferLogRecord
+        {
+            string DateTime;
+            string SourceAccountNumber;
+            string DestinationAccountNumber;
+            float Amount;
+            float srcBalanceAfter;
+            float destBalanceAfter;
+            string UserName;
+        };
+
+        static stTrnsferLogRecord _ConvertTransferLogLineToRecord(string Line, string Seperator = "#//#")
+        {
+            stTrnsferLogRecord TrnsferLogRecord;
+
+            vector<string> vTrnsferLogRecordLine = clsString::Split(Line, Seperator);
+            TrnsferLogRecord.DateTime = vTrnsferLogRecordLine[0];
+            TrnsferLogRecord.SourceAccountNumber = vTrnsferLogRecordLine[1];
+            TrnsferLogRecord.DestinationAccountNumber = vTrnsferLogRecordLine[2];
+            TrnsferLogRecord.Amount = stod(vTrnsferLogRecordLine[3]);
+            TrnsferLogRecord.srcBalanceAfter = stod(vTrnsferLogRecordLine[4]);
+            TrnsferLogRecord.destBalanceAfter = stod(vTrnsferLogRecordLine[5]);
+            TrnsferLogRecord.UserName = vTrnsferLogRecordLine[6];
+
+            return TrnsferLogRecord;
+        }
+
+        static vector<stTrnsferLogRecord> GetTransfersLogList()
+        {
+            vector<stTrnsferLogRecord> vTransferLogRecord;
+
+            fstream MyFile;
+            MyFile.open("TransfersLog.txt", ios::in); // read Mode
+
+            if (MyFile.is_open())
+            {
+
+                string Line;
+
+                stTrnsferLogRecord TransferRecord;
+
+                while (getline(MyFile, Line))
+                {
+
+                    TransferRecord = _ConvertTransferLogLineToRecord(Line);
+
+                    vTransferLogRecord.push_back(TransferRecord);
+                }
+
+                MyFile.close();
+            }
+
+            return vTransferLogRecord;
+        }
     };

@@ -293,4 +293,27 @@ public:
             return NumberToText(Number / 1000000000) + "Billions " + NumberToText(Number % 1000000000);
         }
     }
+
+    static string EncryptText(string Text, short EncryptionKey = 2)
+    {
+
+        for (int i = 0; i <= Text.length(); i++)
+        {
+
+            Text[i] = char((int)Text[i] + EncryptionKey);
+        }
+
+        return Text;
+    }
+
+    static string DecryptText(string Text, short EncryptionKey = 2)
+    {
+
+        for (int i = 0; i <= Text.length(); i++)
+        {
+
+            Text[i] = char((int)Text[i] - EncryptionKey);
+        }
+        return Text;
+    }
 };
