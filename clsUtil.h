@@ -207,7 +207,7 @@ public:
         }
         return t;
     }
-    
+
 
     static string NumberToText(int Number)
     {
