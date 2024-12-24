@@ -3,6 +3,7 @@
 #include "clsScreen.h"
 #include "clsInputValidate.h"
 #include <iomanip>
+#include "clsCurrenciesListScreen.h"
 
 using namespace std;
 
@@ -25,14 +26,15 @@ private:
     static void _GoBackToCurrenciesMenue()
     {
         cout << "\n\nPress any key to go back to Currencies Menue...";
-        system("pause>0");
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.get();
         ShowCurrenciesMenue();
     }
 
     static void _ShowCurrenciesListScreen()
     {
-        cout << "\nCurriencies List Screen Will Be Here.\n";
-
+        //  cout << "\nCurriencies List Screen Will Be Here.\n";
+        clsCurrenciesListScreen::ShowCurrenciesListScreen();
     }
 
     static void _ShowFindCurrencyScreen()
