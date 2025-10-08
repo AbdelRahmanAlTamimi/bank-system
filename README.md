@@ -1,72 +1,113 @@
-# Bank System Project
+# BankSystem
 
-## Content
-1. [About](#about)
-2. [Installation](#installation)
-3. [Features](#features)
-4. [Object-Oriented Programming (OOP) Implementation](#key-oop-concepts-implemented)
+A modern C++17 console application that simulates a simple bank back-office system. It lets bank staff manage clients and users, perform transactions, and handle currencies with plain-text file persistence.
 
-## About
-System built using C++ to implement OPP concepts.
-This project is a console application designed to simulate a banking system, in terms of managing accounts, transferring money between accounts and converting all world currencies. 
+## Table of Contents
 
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Data & Persistence](#data--persistence)
+- [Troubleshooting](#troubleshooting)
+
+## Features
+
+- Client management: add, update, delete, list, and find clients
+- User management: add, update, delete, list, find users; login and activity register
+- Authentication: login screen and login register log
+- Transactions: deposit, withdraw, transfer, and transfer logs
+- Balances: total balances report
+- Currencies: list currencies, find currency, update currency rates, currency calculator, exchange main screen
+- Robust console UI screens with input validation utilities
 
 ## Installation
 
 ### Prerequisites
-Before installing, ensure you have the following:
-- A C++ compiler (e.g., GCC, Clang, or MSVC)
 
-### Steps to Build and Run the Project
+- A C++17-compatible compiler (clang++ or g++)
+- macOS, Linux, or Windows (via MSYS2/WSL)
 
-1. **Clone the Repository**  
-   Clone the project from GitHub:
-   ```bash
-   git clone https://github.com/AbdelRahmanAlTamimi/bank-system.git
-   cd bank-system
-2. **Compile the project**
-e.g. g++ main.cpp -o bank-system
+### Clone
 
-## Features
-1. Login screen (authentication)
-2. Apply permissions for users (authorization)
-3. Lock the system after 3 failed logins
-4. Provide CRUD operation on clients
-5. Provide regular banking transactions
-6. Provide CRUD operation on users
-7. Log file for transfers and Login Processes
-8. Provide currency calculator To convert any currency in the world to another currency
-9. Logout function
-10. Maintainability
-11. Reusability
+```bash
+git clone https://github.com/AbdelRahmanAlTamimi/BankSystem.git
+cd BankSystem
+```
 
+### Build (macOS/Linux)
 
-## Object-Oriented Programming (OOP) Implementation
+Using clang++ (recommended on macOS):
 
-This project is built entirely using **Object-Oriented Programming (OOP)** principles, ensuring clean, modular, and reusable code. All core concepts of OOP are applied meticulously to enhance code maintainability and scalability.
+```bash
+clang++ -std=c++17 -O2 -o main main.cpp
+```
 
-### Key OOP Concepts Implemented:
-1. **Encapsulation**:
-   - All classes and objects are designed to encapsulate data and behavior, restricting direct access to internal components and ensuring robust data management.
-   - Example: Private member variables with public getter and setter methods In all classes.
+Using g++:
 
-2. **Inheritance**:
-   - The project uses inheritance to promote code reusability and hierarchical relationships between classes.
-   - Example: A base class `clsScreen` is inherited by all other screens to share common behavior.
+```bash
+g++ -std=c++17 -O2 -o main main.cpp
+```
 
-3. **Polymorphism**:
-   - Polymorphism is implemented to allow methods to be overridden and provide specific implementations for derived classes.
-   - Example: Overriding the `IsNumberBetween()` method in a base `clsInputValidate` class to handle different data types.
+### Build (Windows/MSYS2 or WSL)
 
-4. **Abstraction**:
-   - Abstraction in this project is achieved by **hiding implementation details** through the use of **private methods** within classes. These private methods encapsulate the internal logic, ensuring that only the necessary functionality is exposed through public methods.
-   - Example: Private method `_LoadClientsDataFromFile()` used in `GetClientsList()` in `clsBankClient.h`.
+```bash
+g++ -std=c++17 -O2 -o main.exe main.cpp
+```
 
+> Note: The project is header-heavy. All implementation is contained in headers plus `main.cpp`, so a single translation unit build is sufficient.
 
-### Why OOP Matters in This Project:
-- **Modularity**: The codebase is structured into well-defined classes, making it easier to debug, test, and extend.
-- **Reusability**: Core functionality is shared across different parts of the application using inheritance and composition.
-- **Scalability**: The project is designed to accommodate future enhancements with minimal code changes.
-- **Readability**: Code is clean, readable, and adheres to best practices in OOP.
+## Usage
 
-By applying object-oriented programming concepts in this project, I will have mastered them and be able to use them effectively in future projects.
+Run the compiled binary from the project root so it can read/write the data files next to it.
+
+macOS/Linux:
+
+```bash
+./main
+```
+
+Windows:
+
+```bash
+main.exe
+```
+
+Follow the on-screen menus to:
+
+- Log in as a user
+- Manage clients and users
+- Perform deposits, withdrawals, and transfers
+- View balances and transfer logs
+- Work with currencies (list, find, update rates, and convert)
+
+If you are starting fresh with empty files, you may need to create an initial user via the users management screens after launching.
+
+## Project Structure
+
+Key files and what they represent:
+
+- `main.cpp`: application entry point and navigation among screens
+- `cls*.h`: console screen and domain classes (clients, users, currency, transactions, etc.)
+- `Global.h`: shared globals and settings
+- `InterfaceCommunication.h`: console I/O abstractions
+- `*.txt` data files: plain-text storage for the app
+
+## Data & Persistence
+
+The app uses plain-text files in the project directory:
+
+- `Clients.txt`: client records
+- `Users.txt`: user accounts and permissions
+- `Currencies.txt`: currency codes and rates
+- `TransferLog.txt`: record of transfers
+- `LoginRegister.txt`: login activity
+
+Keep these files in the same directory as the executable. The program reads/writes them directly; do not relocate them unless you also run the executable from that location.
+
+## Troubleshooting
+
+- Build errors about C++ standard: ensure you pass `-std=c++17` (or newer).
+- Runtime cannot find data files: run the executable from the project root so `*.txt` files are alongside it.
+- Permission denied running `./main`: make it executable `chmod +x main`.
+- Non-ASCII console rendering issues on Windows CMD: try Windows Terminal or PowerShell.
